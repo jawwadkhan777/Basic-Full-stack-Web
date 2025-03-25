@@ -6,24 +6,29 @@ const App = () => {
   const [projects, setProjects] = useState([]);
   const [loading, isLoading] = useState(true);
 
-  useEffect(()=> {
+  // This useEffect runs on Mount
+  useEffect(() => {
     console.log("useEffect hook!");
-    
+
     getProjects()
-    .then(data => {
-      console.log(data);
-      setProjects(data)
-      console.log(projects);
-      
-      isLoading(false)
-    })
-    .catch(error => {
-      console.log(`Error fetching projects: ${error}`)
-      isLoading(false)
-    })
-    
+      .then(data => {
+        console.log("Fetched data: " + data);
+        setProjects(data)
+
+        isLoading(false)
+      })
+      .catch(error => {
+        console.log(`Error fetching projects: ${error}`)
+        isLoading(false)
+      })
+
   }, []);
-  
+
+  // This useEffect runs when `projects` updates
+  useEffect(() => {
+    console.log("Updated Projects:", projects);
+  }, [projects]);
+
   return (
     <div>
       <h1>Project Lists</h1>

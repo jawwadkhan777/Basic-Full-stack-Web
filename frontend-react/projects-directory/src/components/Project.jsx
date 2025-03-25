@@ -1,15 +1,14 @@
 import React from 'react'
 
-const Project = ({projects}) => {
+const Project = ({ data }) => {
 
     return (
         <>
-        {projects?.map(proj => {
-            <li>{proj.project_name}</li>
-        })}
+            {data.map(proj => (
+                <li key={proj.id}>{proj.project_name}</li>
+            ))}
         </>
-
-  )
+    )
 }
 
 export default Project

@@ -1,0 +1,7 @@
+RESTapi - JSON
+
+Get - "/api/projects"
+
+POST - "/api/projects"
+
+DELETE - "/api/projects/:id"

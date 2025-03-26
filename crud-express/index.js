@@ -8,6 +8,7 @@ const PORT = 8081;
 // middle ware
 const cors = require("cors");
 app.use(cors());
+app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 
 
@@ -22,9 +23,12 @@ app.get("/projects", (req, res)=> {
     </ul>`;
     res.send(html);
 })
+
+
 // REST api
+// GET - fetch all projects in json format
 app.get("/api/projects", (req, res)=> res.json({status: "success",projects}))
-// 
+// GET/Delete single project
 app.route("/api/projects/:id")
 .get((req, res)=> {
     const id = Number(req.params.id);
@@ -51,16 +55,17 @@ app.route("/api/projects/:id")
     res.status(404).json({error: `Project not found with id ${id}`})
 })
 
+
 // POST - Add a new project
 app.post("/api/projects", (req, res)=> {
     // const body = req.body;
     if(!req.body.project_name || req.body.project_name.length<3)
         return res.status(400).json({error: "Project name must be atleast 3 characters"});
 
-    const newProj = {id: projects.length+1, project_name: req.body.project_name};
-    projects.push(newProj);
+    const newProject = {id: projects.length+1, project_name: req.body.project_name};
+    projects.push(newProject);
     fs.writeFile("./MOCK_DATA.json", JSON.stringify(projects), (err, data)=> {
-        return res.json({status: "success", project: newProj})
+        return res.json({status: "success", project: newProject})
     })
 })
 

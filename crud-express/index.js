@@ -28,15 +28,39 @@ app.get("/projects", (req, res)=> {
 // REST api
 // GET - fetch all projects in json format
 app.get("/api/projects", (req, res)=> res.json({status: "success",projects}))
-// GET/Delete single project
+// GET/PUT/Delete single project
 app.route("/api/projects/:id")
 .get((req, res)=> {
     const id = Number(req.params.id);
     const proj = projects.find((proj)=> proj.id === id);
     return res.json(proj);
 })
-.patch((req, res)=> {
-    return ""
+.put((req, res)=> {
+    const id = Number(req.params.id);
+    const {project_name} = req.body;
+    const projIndex = projects.findIndex(proj => proj.id === id);
+    console.log(`Index: ${projIndex}`);
+    
+
+    if (projIndex === -1) {
+        return res.status(404).json({error: `Project with id: ${id} not found!`})
+    }
+
+    if (!project_name || project_name<3) {
+        return res.status(400).json({error: "Project name must be atleast 3 characters"})
+    }
+
+    // update project
+    projects[projIndex].project_name = project_name;
+
+    // save changes to MOCK_DATA.json file
+    fs.writeFile("/MOCK_DATA.json", JSON.stringify(projects), (err)=> {
+        if (err) {
+            return res.status(500).json({error: "Failed to update project!"});
+        }
+        res.json({status: "success", updatedProjed: projects[projIndex]});
+    })
+
 })
 .delete((req, res)=> {
     const id = Number(req.params.id);

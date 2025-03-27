@@ -1,8 +1,9 @@
 import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {faDiagramProject, faPenToSquare, faTrash} from '@fortawesome/free-solid-svg-icons'
+import {faDiagramProject, faTrash} from '@fortawesome/free-solid-svg-icons'
+import UpdateProject from './UpdateProject'
 
-const Projects = ({ projects, onProjectDeleted }) => {
+const Projects = ({ projects, onProjectDeleted, onProjectUpdated }) => {
 
     const deleteProject = async (projId)=> {
         // alert(projId);
@@ -30,7 +31,7 @@ const Projects = ({ projects, onProjectDeleted }) => {
                     <div className='flex items-center justify-between w-full'>
                         <p className=''>{proj.project_name}</p>
                         <div className='flex gap-2'>
-                            <FontAwesomeIcon icon={faPenToSquare} className='text-green-500 cursor-pointer hover:text-green-700'/>
+                            <UpdateProject project={proj} onProjectUpdated={onProjectUpdated} />
                             <FontAwesomeIcon icon={faTrash} onClick={() => deleteProject(proj.id)} className='text-red-500 cursor-pointer hover:text-red-700'/>
                         </div>
                     </div>

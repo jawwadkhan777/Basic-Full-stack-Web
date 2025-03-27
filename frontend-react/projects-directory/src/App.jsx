@@ -36,11 +36,17 @@ const App = () => {
       })
   }
 
+  const handleProjectUpdated = ()=> {
+    getProjects()
+      .then(data => setProjects(data))
+      .catch(error => console.log(`Error fetching projects: ${error}`))
+  }
+
   return (
     <div className='mt-10 ml-30 mr-30 mb-10'>
       <h1 className='text-3xl font-bold mb-10'>Projects Directory</h1>
       <ProjectForm onProjectAdded={handleProjectAdded}/>
-      {loading ? <p>Loading, please wait...</p> : <Project projects={projects} onProjectDeleted={handleProjectDeleted} />}
+      {loading ? <p>Loading, please wait...</p> : <Project projects={projects} onProjectDeleted={handleProjectDeleted} onProjectUpdated={handleProjectUpdated} />}
     </div>
   )
 }

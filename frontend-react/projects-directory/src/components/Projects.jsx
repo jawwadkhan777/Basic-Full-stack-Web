@@ -24,7 +24,7 @@ const Projects = ({ projects, onProjectDeleted, onProjectUpdated }) => {
     }
 
     return (
-        <ul className='grid grid-cols-3 grid-rows-3 gap-10 mt-10'>
+        <ul className='grid grid-cols-3 grid-rows-3 gap-10 mt-10 mb-10'>
             {projects.map(proj => (
                 <li key={proj.id} className='list-none flex gap-2 text-lg items-center'>
                     <FontAwesomeIcon icon={faDiagramProject} className='text-green-500 ' />

@@ -82,11 +82,18 @@ app.route("/api/projects/:id")
 
 // POST - Add a new project
 app.post("/api/projects", (req, res)=> {
-    // const body = req.body;
-    if(!req.body.project_name || req.body.project_name.length<3)
+    const projectName = req.body.project_name;
+    console.log(projectName);
+    
+    if(!projectName || projectName.length<3) 
         return res.status(400).json({error: "Project name must be atleast 3 characters"});
 
-    const newProject = {id: projects.length+1, project_name: req.body.project_name};
+    // check for duplicate project name
+    const isDuplicate = projects.some(proj => proj.project_name.toLowerCase() === projectName.toLowerCase());
+    if(isDuplicate) 
+        return res.status(400).json({error: "Project name already exists"});
+
+    const newProject = {id: projects.length+1, project_name: projectName};
     projects.push(newProject);
     fs.writeFile("./MOCK_DATA.json", JSON.stringify(projects), (err, data)=> {
         return res.json({status: "success", project: newProject})

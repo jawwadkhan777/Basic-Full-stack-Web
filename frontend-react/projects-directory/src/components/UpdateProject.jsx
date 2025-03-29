@@ -5,6 +5,7 @@ import React, { useState } from "react";
 const UpdateProject = ({ project, onProjectUpdated }) => {
   const [openModal, setOpenModal] = useState(false);
   const [updateProject, setUpdateProject] = useState(project.project_name);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const updateProjectHandler = async (proj) => {
     console.log(proj);
@@ -13,17 +14,19 @@ const UpdateProject = ({ project, onProjectUpdated }) => {
       const res = await fetch(`http://localhost:8081/api/projects/${proj.id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
-        body:JSON.stringify({project_name: updateProject})
+        body: JSON.stringify({ project_name: updateProject }),
       });
 
-      if (!res.ok) throw new Error("Failed to update project!");
-
       const data = await res.json();
+      if (!res.ok) throw new Error(data.error || "Failed to update project!");
+
       console.log(data);
       onProjectUpdated(data.proj);
+      setErrorMessage("");
       setOpenModal(false);
     } catch (error) {
-      console.error(`Error on updating project: ${error}`);
+      console.error(`Error on updating project: ${error.message}`);
+      setErrorMessage(error.message);
     }
   };
 
@@ -46,7 +49,9 @@ const UpdateProject = ({ project, onProjectUpdated }) => {
           <div className="relative p-4 w-full max-w-md bg-white rounded-lg shadow-md">
             {/* Modal Header */}
             <div className="flex justify-between items-center p-4 border-b">
-              <h3 className="text-lg font-semibold text-green-500">Update Project</h3>
+              <h3 className="text-lg font-semibold text-green-500">
+                Update Project
+              </h3>
               <button
                 type="button"
                 onClick={() => setOpenModal(false)}
@@ -80,6 +85,10 @@ const UpdateProject = ({ project, onProjectUpdated }) => {
                   className="w-full p-2 border text-gray-800 border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
                   required
                 />
+                {/* error message */}
+                {errorMessage && 
+                  <p className="text-red-500 text-sm mt-1">{errorMessage}</p>
+                }
               </div>
               <button
                 type="submit"

@@ -43,18 +43,22 @@ app.route("/api/projects/:id")
     return res.json(proj);
 })
 .put((req, res)=> {
-    const id = Number(req.params.id);
+    const {id} = req.params;
     const {project_name} = req.body;
     const projIndex = projects.findIndex(proj => proj.id === id);
-    console.log(`Index: ${projIndex}`);
+    // console.log(`Index: ${projIndex}`);
     
-
     if (projIndex === -1) {
         return res.status(404).json({error: `Project with id: ${id} not found!`})
     }
 
-    if (!project_name || project_name<3) {
+    if (!project_name || project_name.length<3) {
         return res.status(400).json({error: "Project name must be atleast 3 characters"})
+    }
+
+    const isDuplicate = projects.some(proj => proj.project_name.toLowerCase() === project_name.toLowerCase());
+    if(isDuplicate) {
+        return res.status(400).json({error: "Project name already exists"});
     }
 
     // update project

@@ -45,16 +45,20 @@ const App = () => {
     getProjects();
   }
 
+  const handleProjectCounted = ()=> {
+    getProjects();
+  }
+
   return (
-    <div className='mt-10 ml-30 mr-30 mb-10'>
+    <div className='mt-10 ml-15 mr-15 sm:ml-30 sm:mr-30 mb-10'>
       <div className='mb-10 flex items-center justify-between'>
-        <h1 className='text-3xl font-bold'>Projects Directory</h1>
-        <FontAwesomeIcon icon={faArrowRotateRight} className='text-green-500 cursor-pointer hover:text-green-700 text-3xl' onClick={()=> refreshHandler()} />
+        <h1 className='text-2xl sm:text-3xl font-bold'>Projects Directory</h1>
+        <FontAwesomeIcon icon={faArrowRotateRight} className='text-green-500 cursor-pointer hover:text-green-700 sm:text-3xl text-2xl' onClick={()=> refreshHandler()} />
       </div>
       <ProjectForm onProjectAdded={handleProjectAdded}/>
       {loading ? <p>Loading, please wait...</p> : 
       <>
-        <Project projects={projects} onProjectDeleted={handleProjectDeleted} onProjectUpdated={handleProjectUpdated} /><ProjectCount projects={projects}/>
+        <Project projects={projects} onProjectDeleted={handleProjectDeleted} onProjectUpdated={handleProjectUpdated} /><ProjectCount onProjectCounted={handleProjectCounted} />
       </>
       }
     </div>

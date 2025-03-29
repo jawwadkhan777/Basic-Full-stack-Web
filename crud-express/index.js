@@ -4,6 +4,7 @@ const fs = require('fs');
 const { error, log } = require('console');
 const app = express();
 const PORT = 8081;
+const { v4: uuidv4 } = require('uuid'); // Import UUID
 
 // middle ware
 const cors = require("cors");
@@ -28,6 +29,12 @@ app.get("/projects", (req, res)=> {
 // REST api
 // GET - fetch all projects in json format
 app.get("/api/projects", (req, res)=> res.json({status: "success",projects}))
+// GET - count of the projects
+app.get("/api/projects/count", (req, res)=> {
+    // console.log(projects.length);
+    return res.json({ status: "success", totalProjects: projects.length});
+    
+})
 // GET/PUT/Delete single project
 app.route("/api/projects/:id")
 .get((req, res)=> {
@@ -63,7 +70,7 @@ app.route("/api/projects/:id")
 
 })
 .delete((req, res)=> {
-    const id = Number(req.params.id);
+    const {id} = req.params;
     const index = projects.findIndex((proj)=> proj.id === id);
     console.log(`index: ${index}`);
 
@@ -93,24 +100,11 @@ app.post("/api/projects", (req, res)=> {
     if(isDuplicate) 
         return res.status(400).json({error: "Project name already exists"});
 
-    const newProject = {id: projects.length+1, project_name: projectName};
+    const newProject = {id: uuidv4(), project_name: projectName};
     projects.push(newProject);
     fs.writeFile("./MOCK_DATA.json", JSON.stringify(projects), (err, data)=> {
         return res.json({status: "success", project: newProject})
     })
-})
-
-// GET - count of the projects
-app.get("/api/projects/count", (req, res)=> {
-    try {
-        const data = fs.readFile("./MOCK_DATA.json", "utf-8"); // Read file
-        const projectsData = JSON.parse(data); // Parse JSON
-        return res.json({ status: "success", totalProjects: projectsData.length });
-    } catch (error) {
-        console.error("Error reading projects file:", error);
-        return res.status(500).json({ status: "error", message: "Internal Server Error" });
-    }
-
 })
 
 // start the server

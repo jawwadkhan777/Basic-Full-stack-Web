@@ -1,8 +1,26 @@
-import React from 'react'
+import React, { useState } from 'react'
 
-const ProjectCount = ({projects}) => {
+const ProjectCount = ({ onProjectCounted }) => {
+  const [projCount, setProjCount] = useState(0);
+
+  const getCount = async ()=> {
+    try {
+      const res = await fetch("http://localhost:8081/api/projects/count");
+      const data = await res.json();
+      // console.log(data);
+      setProjCount(data.totalProjects);
+      onProjectCounted();
+
+    } catch(error) {
+      console.error(`Error fetching count: ${error}`);
+      
+    }
+  }
+
+  getCount();
+
   return (
-    <div className='text-green-500 text-xl flex justify-end'>Total Projects: {projects.length}</div>
+    <div className='text-green-500 text-xl flex justify-end'>Total Projects: {projCount}</div>
   )
 }
 

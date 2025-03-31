@@ -5,7 +5,7 @@ const ProjectCount = ({ onProjectCounted }) => {
 
   const getCount = async ()=> {
     try {
-      const res = await fetch("http://localhost:8081/api/projects/count");
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/count`);
       const data = await res.json();
       // console.log(data);
       setProjCount(data.totalProjects);

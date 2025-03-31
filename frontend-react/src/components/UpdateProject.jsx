@@ -11,7 +11,7 @@ const UpdateProject = ({ project, onProjectUpdated }) => {
     console.log(proj);
 
     try {
-      const res = await fetch(`http://localhost:8081/api/projects/${proj.id}`, {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/${proj.id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ project_name: updateProject }),

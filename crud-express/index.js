@@ -1,9 +1,10 @@
 const express = require('express');
+require('dotenv').config();
 const projects = require('./MOCK_DATA.json');
 const fs = require('fs');
-const { error, log } = require('console');
+// const { error, log } = require('console');
 const app = express();
-const PORT = 8081;
+const PORT = process.env.PORT;
 const { v4: uuidv4 } = require('uuid'); // Import UUID
 
 // middle ware

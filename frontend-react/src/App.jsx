@@ -12,7 +12,7 @@ const App = () => {
 
   const getProjects = async ()=> {
     try {
-      const res = await fetch("http://localhost:8081/api/projects");
+      const res = await fetch(import.meta.env.VITE_API_URL);
       const data = await res.json();
       setProjects(data.projects)
       isLoading(false)

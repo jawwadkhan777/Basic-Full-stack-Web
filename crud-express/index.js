@@ -21,6 +21,11 @@ app.use(express.urlencoded({extended: false}));
 
 
 // routes
+// root endpoint
+app.get("/", (req, res)=> {
+    res.send("Welcome to backend server!")
+})
+
 // GET - fetch all projects
 // server side rendring- direct html content
 app.get("/projects", (req, res)=> {
@@ -31,7 +36,6 @@ app.get("/projects", (req, res)=> {
     </ul>`;
     res.send(html);
 })
-
 
 // REST api
 // GET - fetch all projects in json format

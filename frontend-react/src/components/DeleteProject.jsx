@@ -8,7 +8,7 @@ const DeleteProject = ({ project, onProjectDeleted }) => {
   const deleteProjectHandler = async (projId) => {
     // alert(projId);
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_URL}/${projId}`, {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/projects/${projId}`, {
         method: "DELETE",
       });
 

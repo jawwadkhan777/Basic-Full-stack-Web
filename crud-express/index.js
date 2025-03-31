@@ -7,9 +7,15 @@ const app = express();
 const PORT = process.env.PORT;
 const { v4: uuidv4 } = require('uuid'); // Import UUID
 
+const corsOptions = {
+    origin: process.env.FRONTEND_URL,
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"], 
+}
+
 // middle ware
 const cors = require("cors");
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 

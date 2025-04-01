@@ -9,13 +9,15 @@ import ProjectCount from './components/ProjectCount';
 const App = () => {
   const [projects, setProjects] = useState([]);
   const [loading, isLoading] = useState(true);
+  const [countRefresh, setCountRefresh] = useState(false);
 
   const getProjects = async ()=> {
     try {
       const res = await fetch(`${import.meta.env.VITE_API_URL}/api/projects`);
       const data = await res.json();
-      setProjects(data.projects)
-      isLoading(false)
+      setProjects(data.projects);
+      isLoading(false);
+      setCountRefresh(true);
     } catch(error) {
       console.error(`Error fetching projects: ${error}`);
       isLoading(false)
@@ -33,19 +35,17 @@ const App = () => {
     getProjects();
   }
 
-  const handleProjectAdded = (newProject)=> {
-    setProjects([...projects, newProject]);
+  const handleProjectAdded = ()=> {
+    getProjects();
+    setCountRefresh(false);
   }
 
   const handleProjectDeleted = ()=> {
     getProjects();
+    setCountRefresh(false);
   }
 
   const handleProjectUpdated = ()=> {
-    getProjects();
-  }
-
-  const handleProjectCounted = ()=> {
     getProjects();
   }
 
@@ -58,7 +58,7 @@ const App = () => {
       <ProjectForm onProjectAdded={handleProjectAdded}/>
       {loading ? <p>Loading, please wait...</p> : 
       <>
-        <Project projects={projects} onProjectDeleted={handleProjectDeleted} onProjectUpdated={handleProjectUpdated} /><ProjectCount onProjectCounted={handleProjectCounted} />
+        <Project projects={projects} onProjectDeleted={handleProjectDeleted} onProjectUpdated={handleProjectUpdated} /><ProjectCount countRefresh={countRefresh} />
       </>
       }
     </div>

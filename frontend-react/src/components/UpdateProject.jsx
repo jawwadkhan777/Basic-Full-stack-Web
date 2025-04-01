@@ -21,7 +21,7 @@ const UpdateProject = ({ project, onProjectUpdated }) => {
       if (!res.ok) throw new Error(data.error || "Failed to update project!");
 
       console.log(data);
-      onProjectUpdated(data.proj);
+      onProjectUpdated();
       setErrorMessage("");
       setOpenModal(false);
     } catch (error) {

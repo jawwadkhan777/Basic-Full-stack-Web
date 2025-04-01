@@ -19,7 +19,7 @@ const ProjectForm = ({onProjectAdded}) => {
           const data = await res.json();
           if(!res.ok) throw new Error(data.error || "Failed to add project");
           
-          onProjectAdded(data.project);
+          onProjectAdded();
 
           setNewProject(""); // Clear input field after adding
           setErrorMessage(""); // Clear error message on success

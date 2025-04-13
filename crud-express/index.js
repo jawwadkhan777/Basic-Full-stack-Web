@@ -45,9 +45,9 @@ app.use('/api', projects);
 
 // routes
 // root endpoint
-// app.get("/", (req, res)=> {
-//     res.send("Welcome to backend server!")
-// })
+app.get("/", (req, res)=> {
+    res.send("Welcome to backend server!")
+})
 
 // GET - fetch all projects
 // server side rendring- direct html content

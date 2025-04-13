@@ -4,11 +4,6 @@ const router = express.Router();
 const Project = require('../models/projectModel');
 
 // routes
-// root endpoint
-router.get("/", (req, res)=> {
-    res.send("Welcome to backend server!");
-})
-
 // REST API
 // GET - fetch all projects in json format
 router.get("/projects", async (req, res)=> {

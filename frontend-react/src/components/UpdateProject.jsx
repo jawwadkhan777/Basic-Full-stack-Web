@@ -4,23 +4,23 @@ import React, { useState } from "react";
 
 const UpdateProject = ({ project, onProjectUpdated }) => {
   const [openModal, setOpenModal] = useState(false);
-  const [updateProject, setUpdateProject] = useState(project.project_name);
+  const [updateProject, setUpdateProject] = useState(project.proj_name);
   const [errorMessage, setErrorMessage] = useState("");
 
   const updateProjectHandler = async (proj) => {
-    console.log(proj);
+    // console.log(proj);
 
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/projects/${proj.id}`, {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/projects/${proj._id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ project_name: updateProject }),
+        body: JSON.stringify({ proj_name: updateProject }),
       });
 
       const data = await res.json();
+      console.log(data);
       if (!res.ok) throw new Error(data.error || "Failed to update project!");
 
-      console.log(data);
       onProjectUpdated();
       setErrorMessage("");
       setOpenModal(false);

@@ -15,7 +15,9 @@ const App = () => {
     try {
       const res = await fetch(`${import.meta.env.VITE_API_URL}/api/projects`);
       const data = await res.json();
-      setProjects(data.projects);
+      console.log(data);
+      
+      setProjects(data);
       isLoading(false);
       setCountRefresh(true);
     } catch(error) {

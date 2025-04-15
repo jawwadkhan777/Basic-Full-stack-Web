@@ -7,6 +7,7 @@ A simple project management application that allows users to add, view, update a
 - View the list of existing projects
 - Update the projects with validation
 - Delete projects dynamically
+- Refresh projects directory
 - Backend stores projects in mongoDB database
 - RESTful API endpoints
 - Error handling for smooth user experience

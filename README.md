@@ -1,6 +1,6 @@
 # Project Management App
 
-A simple project management application that allows users to add, view, update and delete projects with real-time updates using React for the frontend and Node.js with Express for the backend.
+A simple project management application that allows users to add, view, update and delete projects with real-time updates using React for the frontend, Node.js with Express for the backend and mongoDB for data handling.
 
 ## Features
 - Add new projects with validation (minimum 3 characters, no duplicates)
@@ -19,7 +19,7 @@ A simple project management application that allows users to add, view, update a
 ### Backend
 - Node.js
 - Express.js
-- File System (fs) for data storage
+- MongoDB 
 
 ## Installation
 
@@ -61,12 +61,12 @@ Ensure you have the following installed:
 
 ### **1. Add a Project**
 **Endpoint:** `POST /api/projects`
-- **Request Body:** `{ "project_name": "New Project" }`
+- **Request Body:** `{ "proj_name": "New Project" }`
 - **Response:**
   ```json
   {
     "status": "success",
-    "project": { "id": 1, "project_name": "New Project" }
+    "project": { "id": "67fa1950ad453b829ca05388", "proj_name": "New Project" }
   }
   ```
 - **Error Responses:**
@@ -80,8 +80,8 @@ Ensure you have the following installed:
 - **Response:**
   ```json
   [
-    { "id": 1, "project_name": "New Project" },
-    { "id": 2, "project_name": "Another Project" }
+    { "id": "67fa1950ad453b829ca05388", "proj_name": "New Project" },
+    { "id": "67fa1950ad453b829ca05367", "proj_name": "Another Project" }
   ]
   ```
 
@@ -92,7 +92,7 @@ Ensure you have the following installed:
   ```json
   {
     "status": "success",
-    "project": { "id": 1, "updatedProjed": "projects[projIndex]" }
+    "project": { "id": "67fa1950ad453b829ca05388", "updatedProjed": "projects[projIndex]" }
   }
   ```
 - **Error Responses:**
@@ -105,7 +105,7 @@ Ensure you have the following installed:
 **Endpoint:** `DELETE /api/projects/:id`
 - **Response:**
   ```json
-  { "message": "Project deleted successfully!", "project": { "id": 1, "project_name": "New Project" } }
+  { "message": "Project deleted successfully!", "project": { "id": "67fa1950ad453b829ca05388", "proj_name": "New Project" } }
   ```
 - **Error Response:**
   ```json

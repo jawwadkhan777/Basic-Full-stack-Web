@@ -5,8 +5,8 @@ const projects = require('./routes/projects');
 
 require('dotenv').config();
 // const projects = require('./MOCK_DATA.json');
-const DB_FILE = './MOCK_DATA.json';
-const fs = require('fs');
+// const DB_FILE = './MOCK_DATA.json';
+// const fs = require('fs');
 // const { error, log } = require('console');
 
 const connectDB = require('./db');
@@ -20,8 +20,8 @@ const { v4: uuidv4 } = require('uuid'); // Import UUID
 const corsOptions = {
     origin: process.env.FRONTEND_URL,
     methods: ["GET", "POST", "PUT", "DELETE"],
-    credentials: true
-    // allowedHeaders: ["Content-Type", "Authorization"], 
+    credentials: true,
+    allowedHeaders: ["Content-Type", "Authorization"], 
 }
 
 // middle ware
